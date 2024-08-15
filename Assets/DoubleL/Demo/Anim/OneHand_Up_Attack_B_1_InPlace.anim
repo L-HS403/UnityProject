@@ -91285,7 +91285,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.1666666
-    functionName: DoDamage
+    functionName: DoDamage1
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 186310d2d88bd044e8d42dac91ebbf17, type: 3}
     floatParameter: 0

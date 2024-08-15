@@ -18,15 +18,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float lookSensitivity;
 
-    // 카메라 한계
     [SerializeField]
     private float cameraRotationLimit;
     private float currentCameraRotationX = 0;
 
     private bool isWalk = false;
     private bool isRun = false;
-    private bool isGuard = false;
     private bool isGround = true;
+    private bool isAttack = false;
+    public bool isGuard = false;
 
     private Vector3 movement = new Vector3();
 
@@ -48,14 +48,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        AttackCheck();
         IsGround();
         TryJump();
         TryRun();
+        TryGuard();
     }
 
     private void FixedUpdate()
     {
-        TryGuard();
         Move();
         CharacterRotation();
         MoveCheck();
@@ -84,11 +85,11 @@ public class PlayerController : MonoBehaviour
 
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && statusController.GetCurrentSP() > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && statusController.GetCurrentSP() > 0 && !isAttack)
         {
             Running();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || statusController.GetCurrentSP() <= 0)
+        if (Input.GetKeyUp(KeyCode.LeftShift) || statusController.GetCurrentSP() <= 0 || isAttack)
         {
             RunningCancel();
         }
@@ -112,31 +113,33 @@ public class PlayerController : MonoBehaviour
 
     private void TryGuard()
     {
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) && statusController.GetCurrentSP() > 0 && !isAttack)
         {
             Guard();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse1) || statusController.GetCurrentSP() <= 0 || isAttack)
+        {
+            GuardCancel();
         }
     }
 
     private void Guard()
     {
-        if (isWalk)
-        {
-            isWalk = false;
-        }
+        isWalk = false;
+        applySpeed = 0;
+        isGuard = true;
 
-        isGuard = !isGuard;
+        animator.SetBool("isGuard", true);
+        statusController.DecreaseStamina(50 * Time.deltaTime);
+        statusController.SetDP(100);
+    }
 
-        if (isGuard)
-        {
-            Debug.Log("가드 상태");
-        }
-        else
-        {
-            Debug.Log("비가드 상태");
-        }
-
-        //StartCoroutine(GuardCoroutine());
+    private void GuardCancel()
+    {
+        isGuard = false;
+        animator.SetBool("isGuard", false);
+        applySpeed = walkSpeed;
+        statusController.SetDP(0);
     }
 
     private void Move()
@@ -160,7 +163,6 @@ public class PlayerController : MonoBehaviour
                 isWalk = false;
             else
                 isWalk = true;
-            Debug.Log(isWalk); // 디버그.
             animator.SetBool("isWalk", isWalk);
         }
         animator.SetFloat("xDir", movement.x);
@@ -174,8 +176,9 @@ public class PlayerController : MonoBehaviour
         myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
     }
 
-    private void ResetState()
+    private void AttackCheck()
     {
-
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        isAttack = stateInfo.IsName("Attack_1") || stateInfo.IsName("Attack_2") || stateInfo.IsName("Attack_3");
     }
 }

@@ -35,6 +35,7 @@ public class StatusController : MonoBehaviour
 
     [SerializeField]
     private Image[] images_Gauge;
+    private PlayerController playerController;
 
     private const int HP = 0, SP = 1, DP = 2;
 
@@ -43,6 +44,7 @@ public class StatusController : MonoBehaviour
         currentHp = hp;
         currentSp = sp;
         currentDp = dp;
+        playerController = GetComponent<PlayerController>();
     }
 
     void FixedUpdate()
@@ -94,10 +96,14 @@ public class StatusController : MonoBehaviour
             _count = 0;
         }
         currentHp -= _count;
+        
+        if (playerController.isGuard)
+            DecreaseStamina(30);
 
         if (currentHp <= 0)
+        {
             Debug.Log("캐릭터의 체력이 0이 되었습니다.");
-
+        }
     }
 
     public void IncreaseSP(float _count)
@@ -131,5 +137,10 @@ public class StatusController : MonoBehaviour
     public float GetCurrentSP()
     {
         return currentSp;
+    }
+
+    public void SetDP(float _count)
+    {
+        currentDp = _count;
     }
 }

@@ -5,6 +5,10 @@ using UnityEngine;
 public class AttackController : MonoBehaviour
 {
     private Animator animator;
+    [SerializeField]
+    private MonsterStatus monsterStatus;
+    [SerializeField]
+    private SetTarget setTarget;
     private bool isAttack;
     private int hashAttackCount = Animator.StringToHash("AttackCount");
     [SerializeField]
@@ -34,8 +38,21 @@ public class AttackController : MonoBehaviour
         }
     }
 
-    public void DoDamage()
+    public void DoDamage1()
     {
-        Debug.Log("데미지를 입힘!");
+        if (setTarget.currentTarget != null)
+            setTarget.currentTarget.TakeDamage(attackDamage[0]);
+    }
+
+    public void DoDamage2()
+    {
+        if (setTarget.currentTarget != null)
+            setTarget.currentTarget.TakeDamage(attackDamage[1]);
+    }
+
+    public void DoDamage3()
+    {
+        if (setTarget.currentTarget != null)
+            setTarget.currentTarget.TakeDamage(attackDamage[2]);
     }
 }
