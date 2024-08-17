@@ -36,6 +36,7 @@ public class StatusController : MonoBehaviour
     [SerializeField]
     private Image[] images_Gauge;
     private PlayerController playerController;
+    private Animator animator;
 
     private const int HP = 0, SP = 1, DP = 2;
 
@@ -45,6 +46,7 @@ public class StatusController : MonoBehaviour
         currentSp = sp;
         currentDp = dp;
         playerController = GetComponent<PlayerController>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -96,13 +98,17 @@ public class StatusController : MonoBehaviour
             _count = 0;
         }
         currentHp -= _count;
-        
+        animator.SetTrigger("Hit");
         if (playerController.isGuard)
             DecreaseStamina(30);
 
         if (currentHp <= 0)
         {
-            Debug.Log("캐릭터의 체력이 0이 되었습니다.");
+            currentHp = 0;
+            images_Gauge[HP].fillAmount = currentHp / hp;
+            playerController.Disactivate();
+            GameManager.Instance.deadUI.SetActive(true);
+            GameManager.Instance.ActivePause();
         }
     }
 

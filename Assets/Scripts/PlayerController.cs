@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private bool isAttack = false;
     public bool isGuard = false;
 
+    private bool isActivated = true;
+
     private Vector3 movement = new Vector3();
 
     [SerializeField]
@@ -48,18 +50,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        AttackCheck();
-        IsGround();
-        TryJump();
-        TryRun();
-        TryGuard();
+        if (isActivated)
+        {
+            AttackCheck();
+            IsGround();
+            TryJump();
+            TryRun();
+            TryGuard();
+        }
     }
 
     private void FixedUpdate()
     {
-        Move();
-        CharacterRotation();
-        MoveCheck();
+        if (isActivated)
+        {
+            Move();
+            CharacterRotation();
+            MoveCheck();
+        }
     }
 
     private void IsGround()
@@ -70,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround && statusController.GetCurrentSP() > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && isActivated && isGround && statusController.GetCurrentSP() > 0)
         {
             Jump();
         }
@@ -85,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && statusController.GetCurrentSP() > 0 && !isAttack)
+        if (Input.GetKey(KeyCode.LeftShift) && isActivated && statusController.GetCurrentSP() > 0 && !isAttack)
         {
             Running();
         }
@@ -113,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
     private void TryGuard()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && statusController.GetCurrentSP() > 0 && !isAttack)
+        if (Input.GetKey(KeyCode.Mouse1) && isActivated && statusController.GetCurrentSP() > 0 && !isAttack)
         {
             Guard();
         }
@@ -180,5 +188,15 @@ public class PlayerController : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         isAttack = stateInfo.IsName("Attack_1") || stateInfo.IsName("Attack_2") || stateInfo.IsName("Attack_3");
+    }
+
+    public void Activate()
+    {
+        isActivated = true;
+    }
+
+    public void Disactivate()
+    {
+        isActivated = false;
     }
 }
