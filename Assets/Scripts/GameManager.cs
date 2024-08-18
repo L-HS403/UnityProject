@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject deadUI;
     public GameObject clearUI;
     public GameObject countinue;
+    public GameObject pauseUI;
+    public GameObject pauseCountinue;
 
     private bool isPause;
 
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour
         deadUI = GameObject.Find("DeadUI").transform.Find("DeadUIActivate").gameObject;
         clearUI = GameObject.Find("ClearUI").transform.Find("ClearUIActivate").gameObject;
         countinue = GameObject.Find("DeadUI").transform.Find("Countinue").gameObject;
+        pauseUI = GameObject.Find("PauseUI").transform.Find("PauseUIActivate").gameObject;
+        pauseCountinue = GameObject.Find("PauseUI").transform.Find("Countinue").gameObject;
     }
 
     public void Die()
@@ -98,12 +102,22 @@ public class GameManager : MonoBehaviour
         {
             if (isPause == false)
             {
+                pauseUI.SetActive(true);
+                if (currentLife > 0)
+                {
+                    pauseCountinue.SetActive(true);
+                }
                 ActivePause();
                 return;
             }
 
             if (isPause == true)
             {
+                pauseUI.SetActive(false);
+                if (currentLife > 0)
+                {
+                    pauseCountinue.SetActive(false);
+                }
                 DisactivePause();
                 return;
             }

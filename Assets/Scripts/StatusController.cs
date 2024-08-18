@@ -98,10 +98,15 @@ public class StatusController : MonoBehaviour
             _count = 0;
         }
         currentHp -= _count;
+
         if (_count > 5)
             animator.SetTrigger("Hit");
+
         if (playerController.isGuard)
+        {
             DecreaseStamina(30);
+            SoundManager.Instance.GuardSoundPlay(SoundManager.Instance.soundList[1]);
+        }
 
         if (currentHp <= 0)
         {

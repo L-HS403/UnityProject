@@ -41,18 +41,27 @@ public class AttackController : MonoBehaviour
     public void DoDamage1()
     {
         if (setTarget.currentTarget != null)
+        {
             setTarget.currentTarget.TakeDamage(attackDamage[0]);
+            SoundManager.Instance.SoundPlay(SoundManager.Instance.soundList[0]);
+        }
     }
 
     public void DoDamage2()
     {
         if (setTarget.currentTarget != null)
+        {
             setTarget.currentTarget.TakeDamage(attackDamage[1]);
+            SoundManager.Instance.SoundPlay(SoundManager.Instance.soundList[0]);
+        }
     }
 
     public void DoDamage3()
     {
         if (setTarget.currentTarget != null)
+        {
             setTarget.currentTarget.TakeDamage(attackDamage[2]);
+            SoundManager.Instance.SoundPlay(SoundManager.Instance.soundList[0]);
+        }
     }
 }
