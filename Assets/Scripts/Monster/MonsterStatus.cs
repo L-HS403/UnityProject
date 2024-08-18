@@ -7,6 +7,7 @@ public class MonsterStatus : MonoBehaviour
     [SerializeField]
     private float monsterHP;
     private float currentHP;
+    private bool invincible;
     [SerializeField]
     private MonsterController monsterController;
 
@@ -17,11 +18,17 @@ public class MonsterStatus : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHP -= amount;
+        if (!invincible)
+            currentHP -= amount;
 
         if (currentHP <= 0)
         {
             monsterController.Die();
         }
+    }
+
+    public void SetInvincible(bool b)
+    {
+        invincible = b;
     }
 }

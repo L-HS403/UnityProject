@@ -171,8 +171,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204715966}
-  - component: {fileID: 204715968}
   - component: {fileID: 204715967}
+  - component: {fileID: 204715968}
   m_Layer: 0
   m_Name: SkillRange
   m_TagString: Untagged
@@ -220,7 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 1736675276}
-  monsterAttack: {fileID: 1416085724}
+  monsterController: {fileID: 1135532390}
+  nightmareAttack: {fileID: 1416085724}
 --- !u!1 &320845241
 GameObject:
   m_ObjectHideFlags: 0
@@ -6905,7 +6906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 1736675276}
-  monsterAttack: {fileID: 1416085724}
+  monsterController: {fileID: 1135532390}
+  nightmareAttack: {fileID: 1416085724}
 --- !u!136 &961565593
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7098,12 +7100,9 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 10
   attackRange: 7
-  patternDelay:
-  - 3
-  - 5
-  - 4
-  - 6
-  doSkill: 0
+  monsterNum: 0
+  nightmare: {fileID: 1416085725}
+  isDead: 0
   patternNum: 0
 --- !u!1 &1159025242
 GameObject:
@@ -9877,9 +9876,10 @@ GameObject:
   - component: {fileID: 1415662013}
   - component: {fileID: 1425534839}
   - component: {fileID: 1135532390}
+  - component: {fileID: 1416085725}
   - component: {fileID: 1416085724}
   m_Layer: 0
-  m_Name: Albino
+  m_Name: Nightmare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9894,7 +9894,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1416085723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7d657dcb18dc6049929c4c07d63a442, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ffc5ced787d6a4438e40154089066f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider:
@@ -9908,6 +9908,26 @@ MonoBehaviour:
   - 20
   - 200
   monsterController: {fileID: 1135532390}
+  nightmare: {fileID: 1416085725}
+--- !u!114 &1416085725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416085723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b47e62d90e8294eb2d5c73d3286e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patternDelay:
+  - 4
+  - 6
+  - 5
+  - 8
+  doSkill: 0
+  patternNum: 0
 --- !u!1 &1416087215
 GameObject:
   m_ObjectHideFlags: 0
@@ -13111,7 +13131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 1736675276}
-  monsterAttack: {fileID: 1416085724}
+  monsterController: {fileID: 1135532390}
+  nightmareAttack: {fileID: 1416085724}
 --- !u!136 &1555584861
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14049,7 +14070,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 1736675276}
-  monsterAttack: {fileID: 1416085724}
+  monsterController: {fileID: 1135532390}
+  nightmareAttack: {fileID: 1416085724}
 --- !u!65 &2066084867
 BoxCollider:
   m_ObjectHideFlags: 0

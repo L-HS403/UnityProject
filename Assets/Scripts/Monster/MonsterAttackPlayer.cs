@@ -7,18 +7,35 @@ public class MonsterAttackPlayer : MonoBehaviour
     [SerializeField]
     private StatusController currentTarget;
     [SerializeField]
-    private MonsterAttack monsterAttack;
+    private MonsterController monsterController;
+
+    private int monsterNum;
+
+    [SerializeField] private NightmareAttack nightmareAttack;
+    [SerializeField] private UsurperAttack usurperAttack;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision Detected with: " + other.name);
         if (other.CompareTag("Player"))
         {
-            StatusController player = other.GetComponent<StatusController>();
-            if (player != null)
-            {
-                player.DecreaseHP(monsterAttack.GetDamage());
-            }
+            DamagePlayer(other);
+        }
+    }
+
+    private void DamagePlayer(Collider other)
+    {
+        monsterNum = monsterController.GetMonsterNum();
+        StatusController player = other.GetComponent<StatusController>();
+        if (player != null)
+        {
+            if (monsterNum == 0)
+                player.DecreaseHP(nightmareAttack.GetDamage());
+            if (monsterNum == 1)
+                player.DecreaseHP(nightmareAttack.GetDamage());
+            if (monsterNum == 2)
+                player.DecreaseHP(nightmareAttack.GetDamage());
+            if (monsterNum == 3)
+                player.DecreaseHP(usurperAttack.GetDamage());
         }
     }
 }

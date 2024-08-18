@@ -12,17 +12,17 @@ public class MonsterController : MonoBehaviour
     private float rotationSpeed = 10f;
     [SerializeField]
     private float attackRange = 7f;
-
     [SerializeField]
-    private float[] patternDelay;
+    private int monsterNum;
+
+    [SerializeField] private NightmareAttackController nightmare;
+    [SerializeField] private UsurperAttackController usurper;
 
     private Vector3 directionToPlayer;
     private Vector3 distanceToPlayer;
 
     private bool isMove = true;
-    private bool isDead = false;
-    private bool canSkill = false;
-    public bool doSkill = false;
+    public bool isDead = false;
 
     public int patternNum;
 
@@ -30,13 +30,11 @@ public class MonsterController : MonoBehaviour
 
     void Start()
     {
-        canSkill = true;
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        Debug.Log(canSkill);
         TargetToPlayer();
     }
 
@@ -67,9 +65,21 @@ public class MonsterController : MonoBehaviour
             {
                 isMove = false;
                 animator.SetBool("isMove", false);
-                RandBossPattern();
+                BossPattern();
             }
         }
+    }
+
+    private void BossPattern()
+    {
+        if (monsterNum == 0)
+            nightmare.RandPattern();
+        else if (monsterNum == 1)
+            nightmare.RandPattern();
+        else if (monsterNum == 2)
+            nightmare.RandPattern();
+        else if (monsterNum == 3)
+            usurper.RandPattern();
     }
 
     private void TargetResearch()
@@ -81,57 +91,7 @@ public class MonsterController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    private void RandBossPattern()
-    {
-        patternNum = Random.Range(0, 3);
-
-        switch (patternNum)
-        {
-            case 0:
-                if (canSkill)
-                    BossSkill();
-                else
-                    BossPattern1();
-                break;
-            case 1:
-                BossPattern2();
-                break;
-            case 2:
-                BossPattern3();
-                break;
-        }
-    }
-
-    private void BossSkill()
-    {
-        animator.SetTrigger("BossSkill");
-        doSkill = true;
-        StartCoroutine(PatternDelay(patternDelay[3]));
-        StartCoroutine(SkillDelay());
-    }
-
-    private void BossPattern1()
-    {
-        animator.SetInteger("PatternNum", 1);
-        animator.SetTrigger("StartAttack");
-        StartCoroutine(PatternDelay(patternDelay[0]));
-    }
-
-    private void BossPattern2()
-    {
-        animator.SetInteger("PatternNum", 2);
-        animator.SetTrigger("StartAttack");
-        StartCoroutine(PatternDelay(patternDelay[1]));
-    }
-
-    private void BossPattern3()
-    {
-        animator.SetInteger("PatternNum", 3);
-        animator.SetTrigger("StartAttack");
-        StartCoroutine(PatternDelay(patternDelay[2]));
-    }
-
-    private IEnumerator PatternDelay(float _count)
+    public IEnumerator PatternDelay(float _count)
     {
         yield return new WaitForSeconds(_count);
         animator.SetBool("isMove", true);
@@ -151,12 +111,18 @@ public class MonsterController : MonoBehaviour
         GameManager.Instance.clearUI.SetActive(true);
     }
 
-    private IEnumerator SkillDelay()
+    public int GetMonsterNum()
     {
-        yield return new WaitForSeconds(5f);
-        canSkill = false;
-        doSkill = false;
-        yield return new WaitForSeconds(60f);
-        canSkill = true;
+        return monsterNum;
+    }
+
+    public float GetRotationSpeed()
+    {
+        return rotationSpeed; 
+    }
+
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
     }
 }

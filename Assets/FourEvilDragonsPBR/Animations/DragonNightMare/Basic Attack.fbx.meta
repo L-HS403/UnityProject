@@ -515,7 +515,7 @@ ModelImporter:
       - time: 0.6944882
         functionName: EnableAttackCollider
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b7d657dcb18dc6049929c4c07d63a442, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: 6ffc5ced787d6a4438e40154089066f4, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

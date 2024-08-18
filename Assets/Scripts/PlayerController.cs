@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         if (isGuard) { Guard(); }
-        statusController.DecreaseStamina(20);
+        statusController.DecreaseStamina(40);
         myRigid.velocity = transform.up * jumpForce;
     }
 
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         if (isGuard) { Guard(); }
         isRun = true;
         animator.SetBool("isRun", true);
-        statusController.DecreaseStamina(30 * Time.deltaTime);
+        statusController.DecreaseStamina(50 * Time.deltaTime);
         applySpeed = runSpeed;
     }
 

@@ -98,7 +98,8 @@ public class StatusController : MonoBehaviour
             _count = 0;
         }
         currentHp -= _count;
-        animator.SetTrigger("Hit");
+        if (_count > 5)
+            animator.SetTrigger("Hit");
         if (playerController.isGuard)
             DecreaseStamina(30);
 
