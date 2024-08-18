@@ -7,6 +7,7 @@ public class SceneController : MonoBehaviour
     {
         StartCoroutine(GameManager.Instance.LoadScene("TitleScene"));
         GameManager.Instance.DisactivePause();
+        GameManager.Instance.ResetLife();
     }
 
     public void GoFirstOnClick()
@@ -32,5 +33,6 @@ public class SceneController : MonoBehaviour
     public void CountinueOnClick()
     {
         StartCoroutine(GameManager.Instance.LoadScene(SceneManager.GetActiveScene().name));
+        GameManager.Instance.DecreaseLife();
     }
 }

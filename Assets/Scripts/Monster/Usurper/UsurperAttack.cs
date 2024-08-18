@@ -21,7 +21,6 @@ public class UsurperAttack : MonoBehaviour
 
     public void EnableAttackCollider()
     {
-        Debug.Log(usurper.patternNum);
         if (usurper.patternNum == 0)
         {
             if (usurper.doSkill == true)
@@ -58,13 +57,13 @@ public class UsurperAttack : MonoBehaviour
 
     private IEnumerator BreatheDuration()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         usurper.isBreath = false;
     }
 
     private IEnumerator SkillBreatheDuration()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         usurper.isSkillBreath = false;
     }
 
@@ -72,8 +71,6 @@ public class UsurperAttack : MonoBehaviour
     {
         attackCollider[0].enabled = false;
         attackCollider[1].enabled = false;
-        attackCollider[2].enabled = false;
-        attackCollider[3].enabled = false;
     }
 
     public float GetDamage()

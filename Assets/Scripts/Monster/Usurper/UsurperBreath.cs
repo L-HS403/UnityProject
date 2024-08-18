@@ -49,7 +49,7 @@ public class UsurperBreath : MonoBehaviour
 
             if (Time.time > lastFireTime + fireInterval)
             {
-                FireBreath(direction, breathSpeed * 2);
+                FireBreath(direction, breathSpeed * 2.5f);
                 lastFireTime = Time.time;
             }
         }

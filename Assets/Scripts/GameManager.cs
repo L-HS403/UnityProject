@@ -1,14 +1,25 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
     public GameObject deadUI;
     public GameObject clearUI;
+    public GameObject countinue;
 
     private bool isPause;
+
+    [SerializeField]
+    private int life = 3;
+    private int currentLife;
+
+    private void Start()
+    {
+        ResetLife();
+    }
 
     void Update()
     {
@@ -68,11 +79,16 @@ public class GameManager : MonoBehaviour
     {
         deadUI = GameObject.Find("DeadUI").transform.Find("DeadUIActivate").gameObject;
         clearUI = GameObject.Find("ClearUI").transform.Find("ClearUIActivate").gameObject;
+        countinue = GameObject.Find("DeadUI").transform.Find("Countinue").gameObject;
     }
 
     public void Die()
     {
         deadUI.SetActive(true);
+        if (currentLife > 0)
+        {
+            countinue.SetActive(true);
+        }
         ActivePause();
     }
 
@@ -104,5 +120,25 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         isPause = false;
+    }
+
+    public void DecreaseLife()
+    {
+        currentLife--;
+    }
+
+    public void ResetLife()
+    {
+        currentLife = life;
+    }
+
+    public int GetLife()
+    {
+        return life;
+    }
+
+    public int GetCurrentLife()
+    {
+        return currentLife;
     }
 }

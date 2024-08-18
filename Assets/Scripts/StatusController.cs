@@ -108,8 +108,7 @@ public class StatusController : MonoBehaviour
             currentHp = 0;
             images_Gauge[HP].fillAmount = currentHp / hp;
             playerController.Disactivate();
-            GameManager.Instance.deadUI.SetActive(true);
-            GameManager.Instance.ActivePause();
+            GameManager.Instance.Die();
         }
     }
 

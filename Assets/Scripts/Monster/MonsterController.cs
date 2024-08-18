@@ -16,6 +16,8 @@ public class MonsterController : MonoBehaviour
     private int monsterNum;
 
     [SerializeField] private NightmareAttackController nightmare;
+    [SerializeField] private TerrorBringerAttackController terrorBringer;
+    [SerializeField] private SoulEaterAttackController soulEater;
     [SerializeField] private UsurperAttackController usurper;
 
     private Vector3 directionToPlayer;
@@ -75,9 +77,9 @@ public class MonsterController : MonoBehaviour
         if (monsterNum == 0)
             nightmare.RandPattern();
         else if (monsterNum == 1)
-            nightmare.RandPattern();
+            terrorBringer.RandPattern();
         else if (monsterNum == 2)
-            nightmare.RandPattern();
+            soulEater.RandPattern();
         else if (monsterNum == 3)
             usurper.RandPattern();
     }
