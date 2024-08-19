@@ -27,13 +27,13 @@ public class Potion : MonoBehaviour
             {
                 textManager.Notify("이미 포션을 먹고 있습니다.");
             }
-            else if (statusController.fullHp)
-            {
-                textManager.Notify("체력을 더 이상 회복할 수 없습니다.");
-            }
             else if (GameManager.Instance.currentPotionCount == 0)
             {
                 textManager.Notify("포션이 존재하지 않습니다.");
+            }
+            else if (statusController.fullHp)
+            {
+                textManager.Notify("체력을 더 이상 회복할 수 없습니다.");
             }
             else
             {
@@ -44,16 +44,18 @@ public class Potion : MonoBehaviour
         }
     }
 
-    private IEnumerator Healing()
+    public IEnumerator Healing()
     {
-        if (playerController.usingPotion)
+        for (int i = 0; i < healvalue; i++)
         {
-            for (int i = 0; i < healvalue; i++)
+            if (playerController.usingPotion)
             {
                 statusController.IncreaseHP(1);
                 yield return new WaitForSeconds((float)5 / healvalue);
             }
-            playerController.usingPotion = false;
+            else
+                break;
         }
+        playerController.usingPotion = false;
     }
 }

@@ -2759,7 +2759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186310d2d88bd044e8d42dac91ebbf17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStatus: {fileID: 0}
   setTarget: {fileID: 1428434214}
   attackDamage: 060000000500000008000000
 --- !u!114 &785197651
