@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private int life = 3;
     private int currentLife;
 
+    public int currentPotionCount;
+
     private void Start()
     {
         ResetLife();

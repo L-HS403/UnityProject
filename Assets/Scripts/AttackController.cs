@@ -6,8 +6,6 @@ public class AttackController : MonoBehaviour
 {
     private Animator animator;
     [SerializeField]
-    private MonsterStatus monsterStatus;
-    [SerializeField]
     private SetTarget setTarget;
     private bool isAttack;
     private int hashAttackCount = Animator.StringToHash("AttackCount");

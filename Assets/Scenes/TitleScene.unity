@@ -1479,6 +1479,8 @@ MonoBehaviour:
   deadUI: {fileID: 0}
   clearUI: {fileID: 0}
   countinue: {fileID: 0}
+  pauseUI: {fileID: 0}
+  pauseCountinue: {fileID: 0}
   life: 3
 --- !u!4 &1652953941
 Transform:

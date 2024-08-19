@@ -6,29 +6,25 @@ using UnityEngine.UI;
 
 public class StatusController : MonoBehaviour
 {
-    // 체력
     [SerializeField]
     private float hp;
     private float currentHp;
 
-    // 스테미나
+    public bool fullHp;
+
     [SerializeField]
     private float sp;
     private float currentSp;
 
-    // 스테미나 증가량
     [SerializeField]
     private float spIncreaseSpeed;
 
-    // 스테미나 재회복 딜레이
     [SerializeField]
     private float spRechargeTime;
     private float currentSpRechargeTime;
 
-    // 스테미나 감소 여부
     private bool spUsed;
 
-    // 방어력
     [SerializeField]
     private float dp;
     private float currentDp;
@@ -54,6 +50,11 @@ public class StatusController : MonoBehaviour
         SPRechargeTime();
         SPRecover();
         GaugeUpdate();
+    }
+
+    private void Update()
+    {
+        CheckFullHP();
     }
 
     private void SPRechargeTime()
@@ -84,9 +85,12 @@ public class StatusController : MonoBehaviour
     public void IncreaseHP(float _count)
     {
         if (currentHp + _count > hp)
-            currentHp += _count;
-        else
+        {
             currentHp = hp;
+            playerController.usingPotion = false;
+        }
+        else
+            currentHp += _count;
     }
 
     public void DecreaseHP(float _count)
@@ -102,6 +106,8 @@ public class StatusController : MonoBehaviour
         if (_count > 5)
             animator.SetTrigger("Hit");
 
+        playerController.usingPotion = false;
+
         if (playerController.isGuard)
         {
             DecreaseStamina(30);
@@ -112,7 +118,6 @@ public class StatusController : MonoBehaviour
         {
             currentHp = 0;
             images_Gauge[HP].fillAmount = currentHp / hp;
-            playerController.Disactivate();
             GameManager.Instance.Die();
         }
     }
@@ -153,5 +158,13 @@ public class StatusController : MonoBehaviour
     public void SetDP(float _count)
     {
         currentDp = _count;
+    }
+
+    private void CheckFullHP()
+    {
+        if (currentHp == hp)
+            fullHp = true;
+        else
+            fullHp = false;
     }
 }

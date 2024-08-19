@@ -26,9 +26,8 @@ public class PlayerController : MonoBehaviour
     private bool isRun = false;
     private bool isGround = true;
     private bool isAttack = false;
+    public bool usingPotion = false;
     public bool isGuard = false;
-
-    private bool isActivated = true;
 
     private Vector3 movement = new Vector3();
 
@@ -50,24 +49,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isActivated)
-        {
-            AttackCheck();
-            IsGround();
-            TryJump();
-            TryRun();
-            TryGuard();
-        }
+        AttackCheck();
+        IsGround();
+        TryJump();
+        TryRun();
+        TryGuard();
     }
 
     private void FixedUpdate()
     {
-        if (isActivated)
-        {
-            Move();
-            CharacterRotation();
-            MoveCheck();
-        }
+        Move();
+        CharacterRotation();
+        MoveCheck();
     }
 
     private void IsGround()
@@ -78,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isActivated && isGround && statusController.GetCurrentSP() > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && statusController.GetCurrentSP() > 0 && !usingPotion)
         {
             Jump();
         }
@@ -93,11 +86,11 @@ public class PlayerController : MonoBehaviour
 
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && isActivated && statusController.GetCurrentSP() > 0 && !isAttack)
+        if (Input.GetKey(KeyCode.LeftShift) && statusController.GetCurrentSP() > 0 && !isAttack && !usingPotion)
         {
             Running();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || statusController.GetCurrentSP() <= 0 || isAttack)
+        if (Input.GetKeyUp(KeyCode.LeftShift) || statusController.GetCurrentSP() <= 0 || isAttack || usingPotion)
         {
             RunningCancel();
         }
@@ -121,11 +114,11 @@ public class PlayerController : MonoBehaviour
 
     private void TryGuard()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && isActivated && statusController.GetCurrentSP() > 0 && !isAttack)
+        if (Input.GetKey(KeyCode.Mouse1) && statusController.GetCurrentSP() > 0 && !isAttack && !usingPotion)
         {
             Guard();
         }
-        if (Input.GetKeyUp(KeyCode.Mouse1) || statusController.GetCurrentSP() <= 0 || isAttack)
+        if (Input.GetKeyUp(KeyCode.Mouse1) || statusController.GetCurrentSP() <= 0 || isAttack || usingPotion)
         {
             GuardCancel();
         }
@@ -188,15 +181,5 @@ public class PlayerController : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         isAttack = stateInfo.IsName("Attack_1") || stateInfo.IsName("Attack_2") || stateInfo.IsName("Attack_3");
-    }
-
-    public void Activate()
-    {
-        isActivated = true;
-    }
-
-    public void Disactivate()
-    {
-        isActivated = false;
     }
 }

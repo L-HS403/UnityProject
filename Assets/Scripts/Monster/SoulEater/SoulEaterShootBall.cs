@@ -50,7 +50,7 @@ public class SoulEaterShootBall : MonoBehaviour
         GameObject ball = Instantiate(ball2Prefab, firePosition, Quaternion.LookRotation(direction));
         Rigidbody rb = ball.GetComponent<Rigidbody>();
 
-        rb.velocity = direction * ballSpeed * 5;
+        rb.velocity = direction * ballSpeed * 7;
 
         Destroy(ball, 3f);
     }
