@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -91,6 +90,7 @@ public class GameManager : MonoBehaviour
     public void Die()
     {
         deadUI.SetActive(true);
+        CursorUnlock();
         if (currentLife > 0)
         {
             countinue.SetActive(true);
@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
                 {
                     pauseCountinue.SetActive(true);
                 }
+                CursorUnlock();
                 ActivePause();
                 return;
             }
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
                     pauseCountinue.SetActive(false);
                 }
                 DisactivePause();
+                CursorLock();
                 return;
             }
         }
@@ -156,5 +158,17 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLife()
     {
         return currentLife;
+    }
+
+    public void CursorLock()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void CursorUnlock()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }

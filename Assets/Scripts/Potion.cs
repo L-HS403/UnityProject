@@ -35,6 +35,10 @@ public class Potion : MonoBehaviour
             {
                 textManager.Notify("체력을 더 이상 회복할 수 없습니다.");
             }
+            else if (playerController.isAttack)
+            {
+
+            }
             else
             {
                 playerController.usingPotion = true;

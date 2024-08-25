@@ -4471,6 +4471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTarget: {fileID: 1504206524}
+  playerController: {fileID: 1164035329}
   attackDamage: 060000000500000008000000
 --- !u!114 &1164035328
 MonoBehaviour:
@@ -4510,6 +4511,7 @@ MonoBehaviour:
   jumpForce: 5
   lookSensitivity: 10
   cameraRotationLimit: 1
+  isAttack: 0
   usingPotion: 0
   isGuard: 0
   theCamera: {fileID: 1999684101}

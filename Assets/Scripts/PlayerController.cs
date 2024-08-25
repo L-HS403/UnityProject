@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -25,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool isWalk = false;
     private bool isRun = false;
     private bool isGround = true;
-    private bool isAttack = false;
+    public bool isAttack = false;
     public bool usingPotion = false;
     public bool isGuard = false;
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterStatus : MonoBehaviour
@@ -7,7 +5,6 @@ public class MonsterStatus : MonoBehaviour
     [SerializeField]
     private float monsterHP;
     private float currentHP;
-    private bool invincible;
     [SerializeField]
     private MonsterController monsterController;
 
@@ -18,17 +15,11 @@ public class MonsterStatus : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (!invincible)
-            currentHP -= amount;
+        currentHP -= amount;
 
         if (currentHP <= 0)
         {
             monsterController.Die();
         }
-    }
-
-    public void SetInvincible(bool b)
-    {
-        invincible = b;
     }
 }

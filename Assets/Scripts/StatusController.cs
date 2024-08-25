@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
 
 public class StatusController : MonoBehaviour
@@ -134,10 +131,6 @@ public class StatusController : MonoBehaviour
     public void DecreaseSP(float _count)
     {
         currentSp -= _count;
-
-        if (currentSp <= 0)
-            Debug.Log("캐릭터의 스테미나가 0이 되었습니다.");
-
     }
 
     public void DecreaseStamina(float _count)

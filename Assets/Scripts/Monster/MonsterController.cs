@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterController : MonoBehaviour
@@ -44,7 +43,7 @@ public class MonsterController : MonoBehaviour
     {
         if (playerTransform == null)
         {
-            Debug.Log("플레이어 탐색불가");
+            Debug.LogWarning("플레이어 탐색불가");
             return;
         }
 
@@ -111,6 +110,7 @@ public class MonsterController : MonoBehaviour
         animator.SetTrigger("Dead");
         isDead = true;
         GameManager.Instance.clearUI.SetActive(true);
+        GameManager.Instance.CursorUnlock();
     }
 
     public int GetMonsterNum()

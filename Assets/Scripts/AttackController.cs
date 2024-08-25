@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackController : MonoBehaviour
@@ -7,8 +5,9 @@ public class AttackController : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private SetTarget setTarget;
-    private bool isAttack;
     private int hashAttackCount = Animator.StringToHash("AttackCount");
+    [SerializeField]
+    private PlayerController playerController;
     [SerializeField]
     private int[] attackDamage;
 
@@ -30,7 +29,7 @@ public class AttackController : MonoBehaviour
 
     private void TryAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !playerController.usingPotion)
         {
             animator.SetTrigger("tryAttack");
         }
