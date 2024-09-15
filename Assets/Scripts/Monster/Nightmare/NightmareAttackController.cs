@@ -7,7 +7,7 @@ public class NightmareAttackController : MonoBehaviour
     private float[] patternDelay;
 
     private bool isMove = true;
-    private bool canSkill = true;
+    private bool canSkill = false;
     public bool doSkill = false;
 
     public int patternNum;
@@ -19,26 +19,29 @@ public class NightmareAttackController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         monsterController = GetComponent<MonsterController>();
+        StartCoroutine(StartSkill());
     }
 
     public void RandPattern()
     {
         patternNum = Random.Range(0, 3);
 
-        switch (patternNum)
+        if (canSkill)
+            NightmareSkill();
+        else
         {
-            case 0:
-                if (canSkill)
-                    NightmareSkill();
-                else
+            switch (patternNum)
+            {
+                case 0:
                     NightmarePattern1();
-                break;
-            case 1:
-                NightmarePattern2();
-                break;
-            case 2:
-                NightmarePattern3();
-                break;
+                    break;
+                case 1:
+                    NightmarePattern2();
+                    break;
+                case 2:
+                    NightmarePattern3();
+                    break;
+            }
         }
     }
 
@@ -73,10 +76,16 @@ public class NightmareAttackController : MonoBehaviour
 
     private IEnumerator SkillDelay()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
         canSkill = false;
         doSkill = false;
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
+        canSkill = true;
+    }
+
+    private IEnumerator StartSkill()
+    {
+        yield return new WaitForSeconds(15f);
         canSkill = true;
     }
 }

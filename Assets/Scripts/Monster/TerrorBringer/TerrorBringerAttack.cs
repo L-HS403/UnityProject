@@ -20,30 +20,30 @@ public class TerrorBringerAttack : MonoBehaviour
 
     public void EnableAttackCollider()
     {
-        if (terrorBringer.patternNum == 0)
+        if (terrorBringer.doSkill == true)
         {
-            if (terrorBringer.doSkill == true)
-            {
-                terrorBringer.isSkillBreath = true;
-                StartCoroutine(SkillBreathDuration());
-                return;
-            }
-            else
+            terrorBringer.isSkillBreath = true;
+            StartCoroutine(SkillBreathDuration());
+            return;
+        }
+        else
+        {
+            if (terrorBringer.patternNum == 0)
             {
                 attackCollider[0].enabled = true;
                 currentAttackDamage = attackDamage[0];
             }
-        }
-        else if (terrorBringer.patternNum == 1)
-        {
-            attackCollider[1].enabled = true;
-            currentAttackDamage = attackDamage[1];
-        }
-        else if (terrorBringer.patternNum == 2)
-        {
-            terrorBringer.isBreath = true;
-            StartCoroutine(BreathDuration());
-            return;
+            else if (terrorBringer.patternNum == 1)
+            {
+                attackCollider[1].enabled = true;
+                currentAttackDamage = attackDamage[1];
+            }
+            else if (terrorBringer.patternNum == 2)
+            {
+                terrorBringer.isBreath = true;
+                StartCoroutine(BreathDuration());
+                return;
+            }
         }
         StartCoroutine(AttackDuration());
     }
@@ -56,13 +56,13 @@ public class TerrorBringerAttack : MonoBehaviour
 
     private IEnumerator BreathDuration()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.3f);
         terrorBringer.isBreath = false;
     }
 
     private IEnumerator SkillBreathDuration()
     {
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.6f);
         terrorBringer.isSkillBreath = false;
     }
 

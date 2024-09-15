@@ -8,7 +8,7 @@ public class UsurperAttackController : MonoBehaviour
     private float[] patternDelay;
 
     private bool isMove = true;
-    private bool canSkill = true;
+    private bool canSkill = false;
     public bool doSkill = false;
     public bool isBreath = false;
     public bool isSkillBreath = false;
@@ -32,26 +32,29 @@ public class UsurperAttackController : MonoBehaviour
         monsterController = GetComponent<MonsterController>();
         rotationSpeed = monsterController.GetRotationSpeed();
         moveSpeed = monsterController.GetMoveSpeed();
+        StartCoroutine(StartSkill());
     }
 
     public void RandPattern()
     {
         patternNum = Random.Range(0, 3);
 
-        switch (patternNum)
+        if (canSkill)
+            UsurperSkill();
+        else
         {
-            case 0:
-                if (canSkill)
-                    UsurperSkill();
-                else
+            switch (patternNum)
+            {
+                case 0:
                     UsurperPattern1();
-                break;
-            case 1:
-                UsurperPattern2();
-                break;
-            case 2:
-                UsurperPattern3();
-                break;
+                    break;
+                case 1:
+                    UsurperPattern2();
+                    break;
+                case 2:
+                    UsurperPattern3();
+                    break;
+            }
         }
     }
 
@@ -85,7 +88,13 @@ public class UsurperAttackController : MonoBehaviour
         yield return new WaitForSeconds(15f);
         canSkill = false;
         doSkill = false;
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
+        canSkill = true;
+    }
+
+    private IEnumerator StartSkill()
+    {
+        yield return new WaitForSeconds(15f);
         canSkill = true;
     }
 

@@ -55,7 +55,7 @@ public class Potion : MonoBehaviour
             if (playerController.usingPotion)
             {
                 statusController.IncreaseHP(1);
-                yield return new WaitForSeconds((float)5 / healvalue);
+                yield return new WaitForSeconds((float)3 / healvalue);
             }
             else
                 break;

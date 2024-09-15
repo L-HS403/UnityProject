@@ -47,7 +47,7 @@ public class TerrorBringerBreath : MonoBehaviour
         {
             Vector3 direction = (playerTransform.position - headTransform.position).normalized;
 
-            if (Time.time > lastFireTime + fireInterval)
+            if (Time.time > lastFireTime + fireInterval * 2.5)
             {
                 FireBreath(direction, breathSpeed * 2);
                 lastFireTime = Time.time;

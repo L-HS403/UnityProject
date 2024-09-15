@@ -21,28 +21,29 @@ public class NightmareAttack : MonoBehaviour
     public void EnableAttackCollider()
     {
         Debug.Log(nightmare.patternNum);
-        if (nightmare.patternNum == 0)
+
+        if (nightmare.doSkill == true)
         {
-            if (nightmare.doSkill == true)
-            {
-                attackCollider[3].enabled = true;
-                currentAttackDamage = attackDamage[3];
-            }
-            else
+            attackCollider[3].enabled = true;
+            currentAttackDamage = attackDamage[3];
+        }
+        else
+        {
+            if (nightmare.patternNum == 0)
             {
                 attackCollider[0].enabled = true;
                 currentAttackDamage = attackDamage[0];
             }
-        }
-        else if (nightmare.patternNum == 1)
-        {
-            attackCollider[1].enabled = true;
-            currentAttackDamage = attackDamage[1];
-        }
-        else if (nightmare.patternNum == 2)
-        {
-            attackCollider[2].enabled = true;
-            currentAttackDamage = attackDamage[2];
+            else if (nightmare.patternNum == 1)
+            {
+                attackCollider[1].enabled = true;
+                currentAttackDamage = attackDamage[1];
+            }
+            else if (nightmare.patternNum == 2)
+            {
+                attackCollider[2].enabled = true;
+                currentAttackDamage = attackDamage[2];
+            }
         }
         StartCoroutine(AttackDuration());
     }

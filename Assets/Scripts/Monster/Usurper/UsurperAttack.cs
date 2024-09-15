@@ -21,30 +21,30 @@ public class UsurperAttack : MonoBehaviour
 
     public void EnableAttackCollider()
     {
-        if (usurper.patternNum == 0)
+        if (usurper.doSkill == true)
         {
-            if (usurper.doSkill == true)
-            {
-                usurper.isSkillBreath = true;
-                StartCoroutine(SkillBreatheDuration());
-                return;
-            }
-            else
+            usurper.isSkillBreath = true;
+            StartCoroutine(SkillBreatheDuration());
+            return;
+        }
+        else
+        {
+            if (usurper.patternNum == 0)
             {
                 attackCollider[0].enabled = true;
                 currentAttackDamage = attackDamage[0];
             }
-        }
-        else if (usurper.patternNum == 1)
-        {
-            attackCollider[1].enabled = true;
-            currentAttackDamage = attackDamage[1];
-        }
-        else if (usurper.patternNum == 2)
-        {
-            usurper.isBreath = true;
-            StartCoroutine(BreatheDuration());
-            return;
+            else if (usurper.patternNum == 1)
+            {
+                attackCollider[1].enabled = true;
+                currentAttackDamage = attackDamage[1];
+            }
+            else if (usurper.patternNum == 2)
+            {
+                usurper.isBreath = true;
+                StartCoroutine(BreatheDuration());
+                return;
+            }
         }
         StartCoroutine(AttackDuration());
     }
@@ -63,7 +63,7 @@ public class UsurperAttack : MonoBehaviour
 
     private IEnumerator SkillBreatheDuration()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.8f);
         usurper.isSkillBreath = false;
     }
 

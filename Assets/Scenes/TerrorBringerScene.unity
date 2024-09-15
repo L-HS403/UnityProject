@@ -558,8 +558,8 @@ MonoBehaviour:
   - {fileID: 1319852770}
   - {fileID: 955410577}
   attackDamage:
-  - 20
-  - 20
+  - 15
+  - 15
   monsterController: {fileID: 46254696}
   terrorBringer: {fileID: 46254694}
 --- !u!114 &46254696
@@ -600,7 +600,7 @@ MonoBehaviour:
   headTransform: {fileID: 966171233}
   playerTransform: {fileID: 1164035333}
   breathPrefab: {fileID: 7451423090134328263, guid: 2745d2b453c1c624ca41ad62c6f32973, type: 3}
-  breathSpeed: 16
+  breathSpeed: 15
   fireInterval: 0.02
   terrorBringer: {fileID: 46254694}
 --- !u!1 &52695115
@@ -1809,7 +1809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2183067a5bc034b993502e6d573370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterHP: 250
+  monsterHP: 150
   monsterController: {fileID: 46254696}
 --- !u!64 &324958712
 MeshCollider:

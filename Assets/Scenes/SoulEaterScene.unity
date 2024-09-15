@@ -2362,8 +2362,8 @@ MonoBehaviour:
   - {fileID: 1623243206}
   - {fileID: 712280464}
   attackDamage:
-  - 20
-  - 40
+  - 15
+  - 30
   monsterController: {fileID: 1001575087}
   soulEater: {fileID: 1001575085}
   soulEaterShootBall: {fileID: 1001575084}
@@ -5014,7 +5014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2183067a5bc034b993502e6d573370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterHP: 250
+  monsterHP: 150
   monsterController: {fileID: 1001575087}
 --- !u!1 &1737339348
 GameObject:

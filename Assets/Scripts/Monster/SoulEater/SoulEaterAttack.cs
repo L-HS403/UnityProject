@@ -27,28 +27,28 @@ public class SoulEaterAttack : MonoBehaviour
 
     public void EnableAttackCollider()
     {
-        if (soulEater.patternNum == 0)
+        if (soulEater.doSkill == true)
         {
-            if (soulEater.doSkill == true)
-            {
-                soulEaterShootBall.TryShootBall2();
-                return;
-            }
-            else
+            soulEaterShootBall.TryShootBall2();
+            return;
+        }
+        else
+        {
+            if (soulEater.patternNum == 0)
             {
                 attackCollider[0].enabled = true;
                 currentAttackDamage = attackDamage[0];
             }
-        }
-        else if (soulEater.patternNum == 1)
-        {
-            attackCollider[1].enabled = true;
-            currentAttackDamage = attackDamage[1];
-        }
-        else if (soulEater.patternNum == 2)
-        {
-            soulEaterShootBall.TryShootBall();
-            return;
+            else if (soulEater.patternNum == 1)
+            {
+                attackCollider[1].enabled = true;
+                currentAttackDamage = attackDamage[1];
+            }
+            else if (soulEater.patternNum == 2)
+            {
+                soulEaterShootBall.TryShootBall();
+                return;
+            }
         }
         StartCoroutine(AttackDuration());
     }

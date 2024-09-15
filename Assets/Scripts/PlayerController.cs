@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isGuard", true);
         statusController.DecreaseStamina(50 * Time.deltaTime);
-        statusController.SetDP(100);
+        statusController.SetDP(40);
     }
 
     private void GuardCancel()

@@ -47,7 +47,7 @@ public class UsurperBreath : MonoBehaviour
         {
             Vector3 direction = (playerTransform.position - headTransform.position).normalized;
 
-            if (Time.time > lastFireTime + fireInterval)
+            if (Time.time > lastFireTime + fireInterval * 2)
             {
                 FireBreath(direction, breathSpeed * 2.5f);
                 lastFireTime = Time.time;

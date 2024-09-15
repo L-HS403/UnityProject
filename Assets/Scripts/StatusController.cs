@@ -95,7 +95,7 @@ public class StatusController : MonoBehaviour
     {
         _count -= currentDp;
 
-        if (_count - currentDp < 0)
+        if (_count < 0)
         {
             _count = 0;
         }

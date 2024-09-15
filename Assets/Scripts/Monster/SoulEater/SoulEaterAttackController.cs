@@ -8,7 +8,7 @@ public class SoulEaterAttackController : MonoBehaviour
     private float[] patternDelay;
 
     private bool isMove = true;
-    private bool canSkill = true;
+    private bool canSkill = false;
     public bool doSkill = false;
 
     public int patternNum;
@@ -30,26 +30,29 @@ public class SoulEaterAttackController : MonoBehaviour
         monsterController = GetComponent<MonsterController>();
         rotationSpeed = monsterController.GetRotationSpeed();
         moveSpeed = monsterController.GetMoveSpeed();
+        StartCoroutine(StartSkill());
     }
 
     public void RandPattern()
     {
         patternNum = Random.Range(0, 3);
 
-        switch (patternNum)
+        if (canSkill)
+            SoulEaterSkill();
+        else
         {
-            case 0:
-                if (canSkill)
-                    SoulEaterSkill();
-                else
+            switch (patternNum)
+            {
+                case 0:
                     SoulEaterPattern1();
-                break;
-            case 1:
-                SoulEaterPattern2();
-                break;
-            case 2:
-                SoulEaterPattern3();
-                break;
+                    break;
+                case 1:
+                    SoulEaterPattern2();
+                    break;
+                case 2:
+                    SoulEaterPattern3();
+                    break;
+            }
         }
     }
 
@@ -84,10 +87,16 @@ public class SoulEaterAttackController : MonoBehaviour
 
     private IEnumerator SkillDelay()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(14f);
         canSkill = false;
         doSkill = false;
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
+        canSkill = true;
+    }
+
+    private IEnumerator StartSkill()
+    {
+        yield return new WaitForSeconds(15f);
         canSkill = true;
     }
 }

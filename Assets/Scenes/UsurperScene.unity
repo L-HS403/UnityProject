@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2183067a5bc034b993502e6d573370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterHP: 300
+  monsterHP: 200
   monsterController: {fileID: 1631490419}
 --- !u!64 &140759991
 MeshCollider:
@@ -6195,8 +6195,8 @@ MonoBehaviour:
   - {fileID: 581192397}
   - {fileID: 1527212446}
   attackDamage:
-  - 25
-  - 50
+  - 20
+  - 40
   monsterController: {fileID: 1631490419}
   usurper: {fileID: 1631490422}
 --- !u!114 &1631490419
@@ -6295,7 +6295,7 @@ MonoBehaviour:
   headTransform: {fileID: 300267912}
   playerTransform: {fileID: 785197656}
   breathPrefab: {fileID: 2460341621237378778, guid: 184783687aaeb6345b9c0df9b99f6606, type: 3}
-  breathSpeed: 20
+  breathSpeed: 18
   fireInterval: 0.01
   usurper: {fileID: 1631490422}
 --- !u!1 &1643453602
