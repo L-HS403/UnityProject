@@ -8,11 +8,15 @@ public class MonsterController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 5f;
     [SerializeField]
-    private float rotationSpeed = 10f;
+    private float rotationSpeed = 10f;  
     [SerializeField]
     private float attackRange = 7f;
     [SerializeField]
     private int monsterNum;
+    public string monsterName;
+
+    [SerializeField]
+    private ScoreManager scoreManager;
 
     [SerializeField] private NightmareAttackController nightmare;
     [SerializeField] private TerrorBringerAttackController terrorBringer;
@@ -20,7 +24,6 @@ public class MonsterController : MonoBehaviour
     [SerializeField] private UsurperAttackController usurper;
 
     private Vector3 directionToPlayer;
-    private Vector3 distanceToPlayer;
 
     private bool isMove = true;
     public bool isDead = false;
@@ -73,13 +76,13 @@ public class MonsterController : MonoBehaviour
 
     private void BossPattern()
     {
-        if (monsterNum == 0)
+        if (monsterNum == 1)
             nightmare.RandPattern();
-        else if (monsterNum == 1)
-            terrorBringer.RandPattern();
         else if (monsterNum == 2)
-            soulEater.RandPattern();
+            terrorBringer.RandPattern();
         else if (monsterNum == 3)
+            soulEater.RandPattern();
+        else if (monsterNum == 4)
             usurper.RandPattern();
     }
 
@@ -111,6 +114,8 @@ public class MonsterController : MonoBehaviour
         isDead = true;
         GameManager.Instance.clearUI.SetActive(true);
         GameManager.Instance.CursorUnlock();
+        Timer.Instance.StopTimer();
+        scoreManager.CalScore();
     }
 
     public int GetMonsterNum()

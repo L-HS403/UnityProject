@@ -1,6 +1,16 @@
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public struct Score
+{
+    public int[] timeScore;
+    public float[] damageScore;
+    public float[] score;
+    public float totalScore;
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -10,8 +20,13 @@ public class GameManager : MonoBehaviour
     public GameObject countinue;
     public GameObject pauseUI;
     public GameObject pauseCountinue;
+    public GameObject allClearUI;
 
     private bool isPause;
+
+    public Score score;
+
+    public float receivedDamage;
 
     [SerializeField]
     private int life = 3;
@@ -85,12 +100,14 @@ public class GameManager : MonoBehaviour
         countinue = GameObject.Find("DeadUI").transform.Find("Countinue").gameObject;
         pauseUI = GameObject.Find("PauseUI").transform.Find("PauseUIActivate").gameObject;
         pauseCountinue = GameObject.Find("PauseUI").transform.Find("Countinue").gameObject;
+        allClearUI = GameObject.Find("ClearUI").transform.Find("AllClearUI").gameObject;
     }
 
     public void Die()
     {
         deadUI.SetActive(true);
         CursorUnlock();
+        Timer.Instance.StopTimer();
         if (currentLife > 0)
         {
             countinue.SetActive(true);
@@ -170,5 +187,13 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void GameAllClear()
+    {
+        clearUI.SetActive(false);
+        allClearUI.SetActive(true);
+        score.totalScore = score.score[0] + score.score[1] + score.score[2] + score.score[3];
+        ActivePause();
     }
 }

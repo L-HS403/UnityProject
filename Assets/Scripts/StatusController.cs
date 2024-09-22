@@ -100,9 +100,13 @@ public class StatusController : MonoBehaviour
             _count = 0;
         }
         currentHp -= _count;
+        GameManager.Instance.receivedDamage += _count;
 
         if (_count > 5)
+        {
             animator.SetTrigger("Hit");
+            StartCoroutine(playerController.HitCoroutine());
+        }
 
         playerController.usingPotion = false;
 
@@ -115,7 +119,6 @@ public class StatusController : MonoBehaviour
         if (currentHp <= 0)
         {
             currentHp = 0;
-            images_Gauge[HP].fillAmount = currentHp / hp;
             GameManager.Instance.Die();
         }
     }
@@ -128,17 +131,12 @@ public class StatusController : MonoBehaviour
             currentSp = sp;
     }
 
-    public void DecreaseSP(float _count)
-    {
-        currentSp -= _count;
-    }
-
     public void DecreaseStamina(float _count)
     {
         spUsed = true;
         currentSpRechargeTime = 0;
 
-        if (currentSp - _count > 0)
+        if (currentSp - _count >= 0)
             currentSp -= _count;
         else
             currentSp = 0;

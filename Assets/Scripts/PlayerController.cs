@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,16 +18,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float cameraRotationLimit;
-    private float currentCameraRotationX = 0;
 
     private bool isWalk = false;
     private bool isRun = false;
     private bool isGround = true;
     public bool isAttack = false;
+    private bool isHit = false;
     public bool usingPotion = false;
     public bool isGuard = false;
 
     private Vector3 movement = new Vector3();
+    private Vector3 velocity = new Vector3();
 
     [SerializeField]
     private Camera theCamera;
@@ -62,8 +64,8 @@ public class PlayerController : MonoBehaviour
 
     private void IsGround()
     {
-        Vector3 _position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
-        isGround = Physics.Raycast(_position, Vector3.down, capsuleCollider.bounds.extents.y + 0.2f);
+        Vector3 _position = new Vector3(transform.position.x, transform.position.y + 0.001f, transform.position.z);
+        isGround = Physics.Raycast(_position, Vector3.down, capsuleCollider.bounds.extents.y + 0.001f);
     }
 
     private void TryJump()
@@ -111,11 +113,11 @@ public class PlayerController : MonoBehaviour
 
     private void TryGuard()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && statusController.GetCurrentSP() > 0 && !isAttack && !usingPotion)
+        if (Input.GetKey(KeyCode.Mouse1) && statusController.GetCurrentSP() > 0 && !isAttack && !isHit && !usingPotion)
         {
             Guard();
         }
-        if (Input.GetKeyUp(KeyCode.Mouse1) || statusController.GetCurrentSP() <= 0 || isAttack || usingPotion)
+        if (Input.GetKeyUp(KeyCode.Mouse1) || statusController.GetCurrentSP() <= 0 || isAttack || isHit || usingPotion)
         {
             GuardCancel();
         }
@@ -142,20 +144,22 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.z = Input.GetAxisRaw("Vertical");
+        if (!isHit)
+        {   
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.z = Input.GetAxisRaw("Vertical");
 
-        Vector3 _moveHorizontal = transform.right * movement.x;
-        Vector3 _moveVertical = transform.forward * movement.z;
+            Vector3 _moveHorizontal = transform.right * movement.x;
+            Vector3 _moveVertical = transform.forward * movement.z;
 
-        Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed;
-
-        myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
+            velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed;
+            myRigid.MovePosition(transform.position + velocity * Time.deltaTime);
+        }
     }
 
     private void MoveCheck()
     {
-        if (!isRun && !isGuard && isGround)
+        if (!isRun && !isGuard && isGround && !isAttack && !isHit)
         {
             if (Mathf.Approximately(movement.x, 0) && Mathf.Approximately(movement.z, 0))
                 isWalk = false;
@@ -178,5 +182,16 @@ public class PlayerController : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         isAttack = stateInfo.IsName("Attack_1") || stateInfo.IsName("Attack_2") || stateInfo.IsName("Attack_3");
+    }
+
+    public IEnumerator HitCoroutine()
+    {
+        if (isHit == false)
+        {
+            isHit = true;
+            Debug.Log(isHit);
+            yield return new WaitForSeconds(1f);
+            isHit = false;
+        }
     }
 }

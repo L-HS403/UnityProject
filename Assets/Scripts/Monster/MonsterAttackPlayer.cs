@@ -28,13 +28,13 @@ public class MonsterAttackPlayer : MonoBehaviour
         StatusController player = other.GetComponent<StatusController>();
         if (player != null)
         {
-            if (monsterNum == 0)
-                player.DecreaseHP(nightmareAttack.GetDamage());
             if (monsterNum == 1)
-                player.DecreaseHP(terrorBringerAttack.GetDamage());
+                player.DecreaseHP(nightmareAttack.GetDamage());
             if (monsterNum == 2)
-                player.DecreaseHP(soulEaterAttack.GetDamage());
+                player.DecreaseHP(terrorBringerAttack.GetDamage());
             if (monsterNum == 3)
+                player.DecreaseHP(soulEaterAttack.GetDamage());
+            if (monsterNum == 4)
                 player.DecreaseHP(usurperAttack.GetDamage());
         }
     }

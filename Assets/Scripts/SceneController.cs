@@ -11,41 +11,52 @@ public class SceneController : MonoBehaviour
         GameManager.Instance.ResetLife();
         GameManager.Instance.currentPotionCount = 3;
         GameManager.Instance.CursorUnlock();
+        Timer.Instance.StopTimer();
+        GameManager.Instance.score.totalScore = 0;
     }
 
     public void GoFirstOnClick()
     {
         StartCoroutine(GameManager.Instance.LoadScene("NightmareScene"));
-        SoundManager.Instance.BgSoundPlay(SoundManager.Instance.bgList[1]);
-        GameManager.Instance.CursorLock();
+        DefalutSetting();
     }
 
     public void GoSecondOnClick()
     {
         StartCoroutine(GameManager.Instance.LoadScene("TerrorBringerScene"));
-        SoundManager.Instance.BgSoundPlay(SoundManager.Instance.bgList[1]);
-        GameManager.Instance.CursorLock();
+        DefalutSetting();
     }
 
     public void GoThirdOnClick()
     {
         StartCoroutine(GameManager.Instance.LoadScene("SoulEaterScene"));
-        SoundManager.Instance.BgSoundPlay(SoundManager.Instance.bgList[1]);
-        GameManager.Instance.CursorLock();
+        DefalutSetting();
     }
 
     public void GoLastOnClick()
     {
         StartCoroutine(GameManager.Instance.LoadScene("UsurperScene"));
-        SoundManager.Instance.BgSoundPlay(SoundManager.Instance.bgList[1]);
-        GameManager.Instance.CursorLock();
+        DefalutSetting();
     }
 
     public void CountinueOnClick()
     {
         StartCoroutine(GameManager.Instance.LoadScene(SceneManager.GetActiveScene().name));
         GameManager.Instance.DecreaseLife();
+        DefalutSetting();
+    }
+
+    private void DefalutSetting()
+    {
         SoundManager.Instance.BgSoundPlay(SoundManager.Instance.bgList[1]);
         GameManager.Instance.CursorLock();
+        Timer.Instance.ResetTimer();
+        Timer.Instance.StartTimer();
+        GameManager.Instance.receivedDamage = 0;
+    }
+
+    public void AllClearOnClick()
+    {
+        GameManager.Instance.GameAllClear();
     }
 }
