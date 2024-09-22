@@ -30,6 +30,8 @@ public class StatusController : MonoBehaviour
     [SerializeField]
     private Image[] images_Gauge;
     private PlayerController playerController;
+    [SerializeField]
+    private CameraMove cameraMove;
     private Animator animator;
 
     private const int HP = 0, SP = 1, DP = 2;
@@ -101,6 +103,7 @@ public class StatusController : MonoBehaviour
         }
         currentHp -= _count;
         GameManager.Instance.receivedDamage += _count;
+        cameraMove.CameraShake();
 
         if (_count > 5)
         {

@@ -99,11 +99,11 @@ public class MonsterController : MonoBehaviour
     {
         yield return new WaitForSeconds(_count);
         animator.SetBool("isMove", true);
-        for (int i = 0; i < 100; i++)
+        for (float i = 0; i < 2/Time.deltaTime; i++)
         {
             if (!isDead)
                 TargetResearch();
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
         isMove = true;
     }
@@ -114,6 +114,7 @@ public class MonsterController : MonoBehaviour
         isDead = true;
         GameManager.Instance.clearUI.SetActive(true);
         GameManager.Instance.CursorUnlock();
+        GameManager.Instance.isStop = true;
         Timer.Instance.StopTimer();
         scoreManager.CalScore();
     }

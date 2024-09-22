@@ -11,6 +11,9 @@ public class AttackController : MonoBehaviour
     [SerializeField]
     private int[] attackDamage;
 
+    [SerializeField]
+    public TrailMove tm;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -18,7 +21,8 @@ public class AttackController : MonoBehaviour
 
     void Update()
     {
-        TryAttack();
+        if (!GameManager.Instance.isStop)
+            TryAttack();
     }
 
     public int AttackCount
@@ -41,6 +45,7 @@ public class AttackController : MonoBehaviour
         {
             setTarget.currentTarget.TakeDamage(attackDamage[0]);
             SoundManager.Instance.SoundPlay(SoundManager.Instance.soundList[0]);
+            tm.TrailOn(0);
         }
     }
 
@@ -50,6 +55,7 @@ public class AttackController : MonoBehaviour
         {
             setTarget.currentTarget.TakeDamage(attackDamage[1]);
             SoundManager.Instance.SoundPlay(SoundManager.Instance.soundList[0]);
+            tm.TrailOn(1);
         }
     }
 
@@ -59,6 +65,7 @@ public class AttackController : MonoBehaviour
         {
             setTarget.currentTarget.TakeDamage(attackDamage[2]);
             SoundManager.Instance.SoundPlay(SoundManager.Instance.soundList[0]);
+            tm.TrailOn(2);
         }
     }
 }

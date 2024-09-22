@@ -16,9 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float lookSensitivity;
 
-    [SerializeField]
-    private float cameraRotationLimit;
-
     private bool isWalk = false;
     private bool isRun = false;
     private bool isGround = true;
@@ -48,17 +45,23 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        AttackCheck();
-        IsGround();
-        TryJump();
-        TryRun();
-        TryGuard();
+        if (!GameManager.Instance.isStop)
+        {
+            AttackCheck();
+            IsGround();
+            TryJump();
+            TryRun();
+            TryGuard();
+        }
     }
 
     private void FixedUpdate()
     {
-        Move();
-        CharacterRotation();
+        if (!GameManager.Instance.isStop)
+        {
+            Move();
+            CharacterRotation();
+        }
         MoveCheck();
     }
 
@@ -174,7 +177,7 @@ public class PlayerController : MonoBehaviour
     private void CharacterRotation()
     {
         float _yRotation = Input.GetAxisRaw("Mouse X");
-        Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity;
+        Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity * Time.deltaTime;
         myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
     }
 

@@ -5,6 +5,10 @@ public class TerrorBringerAttackController : MonoBehaviour
 {
     [SerializeField]
     private float[] patternDelay;
+    [SerializeField]
+    private CameraMove cameraMove;
+    [SerializeField]
+    private TextManager textManager;
 
     private bool isMove = true;
     private bool canSkill = false;
@@ -63,6 +67,7 @@ public class TerrorBringerAttackController : MonoBehaviour
         doSkill = true;
         StartCoroutine(monsterController.PatternDelay(patternDelay[3]));
         StartCoroutine(SkillDelay());
+        textManager.Notify("주의! 적이 날아올라 브레스를 발사할 준비를 합니다. 빠르게 피하세요!");
     }
 
     private void TerrorBringerPattern1()
@@ -86,7 +91,13 @@ public class TerrorBringerAttackController : MonoBehaviour
 
     private IEnumerator SkillDelay()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(4f);
+        cameraMove.ChangeCameraTransform(1f, -15f);
+        cameraMove.originPos = new Vector3(0f, 1f, -4f);
+        yield return new WaitForSeconds(7f);
+        cameraMove.ResetCameraTransform();
+        cameraMove.originPos = new Vector3(0f, 2.2f, -4f);
+        yield return new WaitForSeconds(4f);
         canSkill = false;
         doSkill = false;
         yield return new WaitForSeconds(30f);
@@ -111,7 +122,7 @@ public class TerrorBringerAttackController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             Vector3 moveDirection = directionToPlayer.normalized;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            transform.position -= moveDirection * moveSpeed * 3 * Time.deltaTime;
+            transform.position -= moveDirection * moveSpeed * Time.deltaTime;
 
             float distanceToPlayer = directionToPlayer.magnitude;
 
@@ -124,7 +135,7 @@ public class TerrorBringerAttackController : MonoBehaviour
                 StartCoroutine(monsterController.PatternDelay(patternDelay[2]));
                 break;
             }
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
     }
 }

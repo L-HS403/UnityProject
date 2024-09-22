@@ -49,9 +49,11 @@ public class SceneController : MonoBehaviour
     private void DefalutSetting()
     {
         SoundManager.Instance.BgSoundPlay(SoundManager.Instance.bgList[1]);
+        GameManager.Instance.DisactivePause();
         GameManager.Instance.CursorLock();
         Timer.Instance.ResetTimer();
         Timer.Instance.StartTimer();
+        GameManager.Instance.isStop = false;
         GameManager.Instance.receivedDamage = 0;
     }
 

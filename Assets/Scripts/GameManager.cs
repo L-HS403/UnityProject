@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject allClearUI;
 
     private bool isPause;
+    public bool isStop = false;
 
     public Score score;
 
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private void Pause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isStop)
         {
             if (isPause == false)
             {
@@ -138,8 +138,8 @@ public class GameManager : MonoBehaviour
                 {
                     pauseCountinue.SetActive(false);
                 }
-                DisactivePause();
                 CursorLock();
+                DisactivePause();
                 return;
             }
         }

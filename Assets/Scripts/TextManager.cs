@@ -50,7 +50,7 @@ public class TextManager : MonoBehaviour
         clearTimeText.text = "Time : " + string.Format("{0:D2}:{1:D2}", Timer.Instance.currentTimeMin, (int)Timer.Instance.currentTimeSec);
         clearDamagedText.text = "Damaged : " + GameManager.Instance.receivedDamage;
         clearScoreText.text = "Score : " + GameManager.Instance.score.score[stageNum - 1] + " / 400";
-        totalScoreText.text = "Total : " + GameManager.Instance.score.totalScore + " / 1600";
+        totalScoreText.text = "Total Score : " + GameManager.Instance.score.totalScore + " / 1600";
     }
 
     public void Notify(string str)
@@ -62,7 +62,7 @@ public class TextManager : MonoBehaviour
 
     private IEnumerator FadeNotice()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         while (notice.color.a > 0)
         {
             notice.color = new Color(notice.color.r, notice.color.g, notice.color.b, notice.color.a - (Time.deltaTime * 2.0f));

@@ -6,6 +6,8 @@ public class NightmareAttack : MonoBehaviour
     [SerializeField]
     private Collider[] attackCollider;
     [SerializeField]
+    private ParticleSystem particleEffect;
+    [SerializeField]
     private float[] attackDamage;
     private float currentAttackDamage;
     [SerializeField]
@@ -20,12 +22,11 @@ public class NightmareAttack : MonoBehaviour
 
     public void EnableAttackCollider()
     {
-        Debug.Log(nightmare.patternNum);
-
         if (nightmare.doSkill == true)
         {
             attackCollider[3].enabled = true;
             currentAttackDamage = attackDamage[3];
+            particleEffect.Play();
         }
         else
         {

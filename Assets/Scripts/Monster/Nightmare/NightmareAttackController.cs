@@ -5,6 +5,8 @@ public class NightmareAttackController : MonoBehaviour
 {
     [SerializeField]
     private float[] patternDelay;
+    [SerializeField]
+    private TextManager textManager;
 
     private bool isMove = true;
     private bool canSkill = false;
@@ -51,6 +53,7 @@ public class NightmareAttackController : MonoBehaviour
         doSkill = true;
         StartCoroutine(monsterController.PatternDelay(patternDelay[3]));
         StartCoroutine(SkillDelay());
+        textManager.Notify("주의! 적이 뛰어올라 지면을 내리칠 준비를 합니다. 바닥을 조심하세요!");
     }
 
     private void NightmarePattern1()

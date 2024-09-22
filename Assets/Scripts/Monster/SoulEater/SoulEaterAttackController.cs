@@ -6,6 +6,10 @@ public class SoulEaterAttackController : MonoBehaviour
 {
     [SerializeField]
     private float[] patternDelay;
+    [SerializeField]
+    private CameraMove cameraMove;
+    [SerializeField]
+    private TextManager textManager;
 
     private bool isMove = true;
     private bool canSkill = false;
@@ -62,6 +66,7 @@ public class SoulEaterAttackController : MonoBehaviour
         doSkill = true;
         StartCoroutine(monsterController.PatternDelay(patternDelay[3]));
         StartCoroutine(SkillDelay());
+        textManager.Notify("주의! 적이 날아올라 구체를 발사할 준비를 합니다. 타이밍에 맞춰 방패를 단단히 올리세요!");
     }
 
     private void SoulEaterPattern1()
@@ -87,7 +92,13 @@ public class SoulEaterAttackController : MonoBehaviour
 
     private IEnumerator SkillDelay()
     {
-        yield return new WaitForSeconds(14f);
+        yield return new WaitForSeconds(3f);
+        cameraMove.ChangeCameraTransform(1f, -15f);
+        cameraMove.originPos = new Vector3(0f, 1f, -4f);
+        yield return new WaitForSeconds(6f);
+        cameraMove.ResetCameraTransform();
+        cameraMove.originPos = new Vector3(0f, 2.2f, -4f);
+        yield return new WaitForSeconds(5f);
         canSkill = false;
         doSkill = false;
         yield return new WaitForSeconds(30f);
